@@ -9,7 +9,7 @@
       <th>Weight</th>
       <th>Height</th>
       <th>Description</th>
-      <th>Pet</th>
+      <th>Pets</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -21,10 +21,10 @@
         <td><%= pet_history.weight %></td>
         <td><%= pet_history.height %></td>
         <td><%= pet_history.description %></td>
-        <td><%= pet_history.pet %></td>
-        <td><%= link_to 'Show', [@pet, pet_history] %></td>
-        <td><%= link_to 'Edit', edit_pet_pet_history_path(@pet, pet_history) %></td>
-        <td><%= link_to 'Destroy', [@pet, pet_history], method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to pet_history.pet, client_pets_path(@client) %></td>
+        <td><%= link_to 'Show', [@client, @pet, pet_history] %></td>
+        <td><%= link_to 'Edit', edit_client_pet_pet_history_path(@client, @pet, pet_history) %></td>
+        <td><%= link_to 'Destroy', [@client, @pet, pet_history], method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
@@ -32,4 +32,4 @@
 
 <br>
 
-<%= link_to 'New Pet History', new_pet_pet_history_path %>
+<%= link_to 'New Pet History', new_client_pet_pet_history_path %>

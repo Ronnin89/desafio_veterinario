@@ -15,25 +15,27 @@
   <%= @pet.date_of_birth %>
 </p>
 
-<p>
-  <strong>Average Weight</strong>
-  <%= @pet.average_weight %>
-</p>
+<strong>Owner:</strong>
+<%= @pet.client %>
 
-<p>
-  <strong>Average Height</strong>
-  <%= @pet.average_height %>
-</p>
+<table class="table">
+  <thead>
+    <tr>
+      <th>Average Weight</th>
+      <th>Average Height</th>
+      <th>Max. Weight</th>
+      <th>Max. Height</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><%= @pet.average_weight %></td>
+      <td><%= @pet.average_height %></td>
+      <td><%= @pet.max_weight %></td>
+      <td><%= @pet.max_height %></td>
+    </tr>
+  </tbody>
+</table>
 
-<p>
-  <strong>Max. Weight</strong>
-  <%= @pet.max_weight %>
-</p>
-
-<p>
-  <strong>Max. Height</strong>
-  <%= @pet.max_height %>
-</p>
-
-<%= link_to 'Edit', edit_pet_path(@pet) %> |
-<%= link_to 'Back', pets_path %>
+<%= link_to 'Edit', edit_client_pet_path(@client, @pet) %> |
+<%= link_to 'Back', client_pets_path(@client) %>

@@ -1,9 +1,10 @@
 class PetsController < ApplicationController
   before_action :set_pet, only: %i[ show edit update destroy ]
+  before_action :set_client
 
   # GET /pets or /pets.json
   def index
-    @pets = Pet.all
+    @pets = @client.pets
   end
 
   # GET /pets/1 or /pets/1.json
@@ -12,7 +13,7 @@ class PetsController < ApplicationController
 
   # GET /pets/new
   def new
-    @pet = Pet.new
+    @pet = @client.pets.build
   end
 
   # GET /pets/1/edit
@@ -21,11 +22,11 @@ class PetsController < ApplicationController
 
   # POST /pets or /pets.json
   def create
-    @pet = Pet.new(pet_params)
+    @pet = @client.pets.build(pet_params)
 
     respond_to do |format|
       if @pet.save
-        format.html { redirect_to @pet, notice: "Pet was successfully created." }
+        format.html { redirect_to [@client, @pet], notice: "Pet was successfully created." }
         format.json { render :show, status: :created, location: @pet }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -37,8 +38,8 @@ class PetsController < ApplicationController
   # PATCH/PUT /pets/1 or /pets/1.json
   def update
     respond_to do |format|
-      if @pet.update(pet_params)
-        format.html { redirect_to @pet, notice: "Pet was successfully updated." }
+      if @pet.update(pet_params.merge(pet: @pet))
+        format.html { redirect_to [@client, @pet], notice: "Pet was successfully updated." }
         format.json { render :show, status: :ok, location: @pet }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -51,7 +52,7 @@ class PetsController < ApplicationController
   def destroy
     @pet.destroy
     respond_to do |format|
-      format.html { redirect_to pets_url, notice: "Pet was successfully destroyed." }
+      format.html { redirect_to root_path, notice: "Pet was successfully destroyed." }
       format.json { head :no_content }
     end
   end
@@ -60,6 +61,10 @@ class PetsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_pet
       @pet = Pet.find(params[:id])
+    end
+
+    def set_client
+      @client = Client.find(params[:client_id])
     end
 
     # Only allow a list of trusted parameters through.

@@ -1,10 +1,11 @@
 class PetHistoriesController < ApplicationController
   before_action :set_pet_history, only: %i[ show edit update destroy ]
   before_action :set_pet
+  before_action :set_client
 
   # GET /pet_histories or /pet_histories.json
   def index
-    @pet_histories = @pet.pet_histories
+    @pet_histories = @client.pets.find(@pet.id).pet_histories
   end
 
   # GET /pet_histories/1 or /pet_histories/1.json
@@ -27,7 +28,7 @@ class PetHistoriesController < ApplicationController
 
     respond_to do |format|
       if @pet_history.save
-        format.html { redirect_to [@pet, @pet_history], notice: "Pet history was successfully created." }
+        format.html { redirect_to [@client, @pet, @pet_history], notice: "Pet history was successfully created." }
         format.json { render :show, status: :created, location: @pet_history }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -39,8 +40,8 @@ class PetHistoriesController < ApplicationController
   # PATCH/PUT /pet_histories/1 or /pet_histories/1.json
   def update
     respond_to do |format|
-      if @pet_history.update(pet_history_params.merge(pet: @pet))
-        format.html { redirect_to [@pet, @pet_history], notice: "Pet history was successfully updated." }
+      if @pet_history.update(pet_history_params.merge(client: @client, pet: @pet))
+        format.html { redirect_to [@client, @pet, @pet_history], notice: "Pet history was successfully updated." }
         format.json { render :show, status: :ok, location: @pet_history }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -62,6 +63,10 @@ class PetHistoriesController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_pet_history
       @pet_history = PetHistory.find(params[:id])
+    end
+
+    def set_client
+      @client = Client.find(params[:client_id])
     end
 
     def set_pet

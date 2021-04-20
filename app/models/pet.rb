@@ -1,5 +1,6 @@
 class Pet < ApplicationRecord
     has_many :pet_histories, dependent: :destroy
+    belongs_to :client
 
     def to_s
         return name
