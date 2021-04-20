@@ -15,5 +15,25 @@
   <%= @pet.date_of_birth %>
 </p>
 
+<p>
+  <strong>Average Weight</strong>
+  <%= @pet.average_weight %>
+</p>
+
+<p>
+  <strong>Average Height</strong>
+  <%= @pet.average_height %>
+</p>
+
+<p>
+  <strong>Max. Weight</strong>
+  <%= @pet.max_weight %>
+</p>
+
+<p>
+  <strong>Max. Height</strong>
+  <%= @pet.max_height %>
+</p>
+
 <%= link_to 'Edit', edit_pet_path(@pet) %> |
 <%= link_to 'Back', pets_path %>
