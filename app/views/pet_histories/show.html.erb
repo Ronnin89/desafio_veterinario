@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Visit:</strong>
+  <%= @pet_history.visit %>
+</p>
+
+<p>
+  <strong>Weight:</strong>
+  <%= @pet_history.weight %>
+</p>
+
+<p>
+  <strong>Height:</strong>
+  <%= @pet_history.height %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @pet_history.description %>
+</p>
+
+<p>
+  <strong>Pet:</strong>
+  <%= @pet_history.pet %>
+</p>
+
+<%= link_to 'Edit', edit_pet_history_path(@pet_history) %> |
+<%= link_to 'Back', pet_histories_path %>
